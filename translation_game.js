@@ -1,4 +1,4 @@
-
+﻿
 document.addEventListener('DOMContentLoaded', function () { 
     var cards_selected_count = 0;
     var selectedCellsList = [];
@@ -122,6 +122,9 @@ document.addEventListener('DOMContentLoaded', function () {
  function hideTrueTranslatedElements(selectedCellsList){
     selectedCellsList.forEach(function (element, index, list){
         element.setAttribute('class','card hide');
+	setTimeout(function () {
+                       element.setAttribute('style','visibility: hidden;');
+                    }, 500);
     });
  }
 
