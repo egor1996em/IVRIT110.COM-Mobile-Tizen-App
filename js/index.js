@@ -97,6 +97,30 @@ document.addEventListener('DOMContentLoaded', function () {
         });
      }
     
+     function printResults(){
+        var loadResults = function(successCallback){
+            db.transaction(function(transaction){
+                transaction.executeSql("SELECT * FROM Results r order by r.rowid desc LIMIT 5;", [],
+                    function(transaction, results){successCallback(results);}, function (error) {alert('Error')});
+                });
+        };
+
+        var res = loadResults(function (results) {
+            var userResults = [];
+            for (var i = 0; i < results.rows.length; i++){
+                usersResults.push(new Result(results.rows[i].name, results.rows[i].error_count));
+            }
+
+            hideMenu();
+
+            usersResults.forEach(function (element, index, list) {
+                
+            });
+
+        }); 
+
+     }
+
      function printCardsFromArray(contentArray){
         var table = document.querySelector('#gametable');
     
@@ -209,11 +233,14 @@ function insertGametable(gametable) {
         }, 700);
      }
     
-    class Card {
-        constructor(word, translate) {
+    function Card(word, translate) {
             this.word = word.toString();
             this.translate = translate.toString();
-        }
+    }
+
+    function Result(name, error_count) {
+        this.name = name.toString();
+        this.errors_in_game = error_count.toString();
     }
     
     function getRandomValueFromDiapasone(min, max){
@@ -289,7 +316,7 @@ function insertGametable(gametable) {
     function getResults(db) {
         var results = [];
         db.transaction(function(tx) {
-            tx.executeSql("SELECT * FROM Results r order by r.id desc LIMIT 5;", [], function (tx, result) { 
+            tx.executeSql("SELECT * FROM Results r order by r.rowid desc LIMIT 5;", [], function (tx, result) { 
                 for (var i = 0 ; i < result.rows.length; i++){
                     results.push(result.rows.item(i));
                 }
