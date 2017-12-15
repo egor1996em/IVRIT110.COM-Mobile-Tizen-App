@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.translation_card_game{
+    width: 100%;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    height: 100vh;
+    border-spacing: 4vw 8vh;
+    background: whitesmoke;
+}
+
+.card{
+    width: 50%;
+    background-color: grey;
+    border: 1px solid black;
+    color: white;
+    font-size: 7vw;
+    text-align: center;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    opacity: 1;
+
+    -webkit-transition: background-color 0.6s linear;
+    transition:background-color 0.6s linear;
+
+    -webkit-transition: color 0.5s linear;
+    transition:color 0.5s linear;
+
+    -webkit-transition: opacity 0.4s linear;
+    transition:opacity 0.4s linear;
+}
+
+.selected{
+    background-color: white;
+    color: black;
+
+    -webkit-transition: background-color 0.6s linear;
+    transition:background-color 0.6s linear;
+
+    -webkit-transition: color 0.5s linear;
+    transition:color 0.5s linear;
+}
+
+.error{
+    background-color: lightpink;
+
+    -webkit-transition: background-color 0.6s linear;
+    transition:background-color 0.6s linear;
+}
+
+.hide{
+    opacity: 0;
+
+    background-color: white;
+    color: black;
+
+    -webkit-transition: opacity 0.2s linear;
+    transition:opacity 0.2s linear;
+}
