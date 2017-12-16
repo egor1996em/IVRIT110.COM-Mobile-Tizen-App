@@ -338,7 +338,7 @@ function insertGametable(gametable) {
             tx.executeSql("SELECT COUNT(*) FROM Dictionary", [], function (result) { 
     
              }, function (tx, error) {
-            tx.executeSql("CREATE TABLE Dictionary (id REAL UNIQUE autoincrement, word TEXT, translation TEXT)", [], null, null);
+            tx.executeSql("CREATE TABLE Dictionary (id REAL UNIQUE, word TEXT, translation TEXT)", [], null, null);
             tx.executeSql("INSERT INTO Dictionary (Word, Translation) values(?, ?)", ["Apple", "Яблоко"], null, null);
             tx.executeSql("INSERT INTO Dictionary (Word, Translation) values(?, ?)", ["Chery", "Вишня"], null, null);
             tx.executeSql("INSERT INTO Dictionary (Word, Translation) values(?, ?)", ["Banana", "Банан"], null, null);
@@ -352,7 +352,7 @@ function insertGametable(gametable) {
             tx.executeSql("SELECT COUNT(*) FROM Results", [], function (result) { 
     
              }, function (tx, error) {
-            tx.executeSql("CREATE TABLE Results (id REAL UNIQUE autoincrement, Name TEXT, Errors INTEGER)", [], null, null);
+            tx.executeSql("CREATE TABLE Results (id REAL UNIQUE, Name TEXT, Errors INTEGER)", [], null, null);
             });
         });
 
