@@ -20,13 +20,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var start_button = document.querySelector('#start');
         start_button.onclick = function (e) {
-
             hideMenu();
             insertGametable(createGametable());
-
              PlayGame();
-           
         }
+
+        var results_button = document.querySelector('#results');
+        results_button.onclick = function (e) {
+            hideMenu();
+            printResults();
+        }
+
      }, true);
     
      function PlayGame(){
@@ -97,26 +101,67 @@ document.addEventListener('DOMContentLoaded', function () {
         });
      }
     
-     function printResults(){
+function printResults(){
         var loadResults = function(successCallback){
             db.transaction(function(transaction){
                 transaction.executeSql("SELECT * FROM Results r order by r.rowid desc LIMIT 5;", [],
-                    function(transaction, results){successCallback(results);}, function (error) {alert('Error')});
+                    function(transaction, results){successCallback(results);}, function (error) {alert(error)});
                 });
         };
 
         var res = loadResults(function (results) {
             var userResults = [];
             for (var i = 0; i < results.rows.length; i++){
-                usersResults.push(new Result(results.rows[i].name, results.rows[i].error_count));
+                userResults.push(new Result(results.rows[i].Name, results.rows[i].Errors));
             }
 
-            hideMenu();
+            var app = document.querySelector('#app');
 
-            usersResults.forEach(function (element, index, list) {
-                
+            var table = document.createElement("table");
+            table.setAttribute('class', 'result');
+
+            var head = document.createElement("thead");
+            head.setAttribute('class', 'result');
+
+            var header_row = document.createElement("tr");
+            header_row.setAttribute('class', 'result');
+
+            var name_column = document.createElement("td");
+            name_column.setAttribute('class', 'result');
+            name_column.innerHTML = 'Имя';
+
+            var result_column = document.createElement("td");
+            result_column.setAttribute('class', 'result');
+            result_column.innerHTML = 'Ошибки';
+
+            var body = document.createElement("tbody");
+            body.setAttribute('class', 'result');
+
+            header_row.appendChild(name_column);
+            header_row.appendChild(result_column);
+            head.appendChild(header_row);
+            table.appendChild(head);
+    
+            userResults.forEach(function (element, index, list) {
+
+                var result_row = document.createElement("tr");
+                result_row.setAttribute('class', 'result');
+
+                var result_name = document.createElement("td");
+                result_name.setAttribute('class', 'result');
+                result_name.innerHTML = element.Name;
+
+                var result_error_count = document.createElement("td");
+                result_error_count.setAttribute('class', 'result');
+                result_error_count.innerHTML = element.Errors;
+
+                result_row.appendChild(result_name);
+                result_row.appendChild(result_error_count);
+                body.appendChild(result_row);
             });
 
+            table.appendChild(body);
+            app.appendChild(table);
         }); 
 
      }
@@ -238,9 +283,9 @@ function insertGametable(gametable) {
             this.translate = translate.toString();
     }
 
-    function Result(name, error_count) {
-        this.name = name.toString();
-        this.errors_in_game = error_count.toString();
+    function Result(Name, Errors) {
+        this.Name = Name.toString();
+        this.Errors = Errors.toString();
     }
     
     function getRandomValueFromDiapasone(min, max){
@@ -307,7 +352,7 @@ function insertGametable(gametable) {
             tx.executeSql("SELECT COUNT(*) FROM Results", [], function (result) { 
     
              }, function (tx, error) {
-            tx.executeSql("CREATE TABLE Results (id REAL UNIQUE autoincrement, name TEXT, errors INTEGER)", [], null, null);
+            tx.executeSql("CREATE TABLE Results (id REAL UNIQUE autoincrement, Name TEXT, Errors INTEGER)", [], null, null);
             });
         });
 

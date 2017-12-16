@@ -21,7 +21,9 @@ body{
 
 div.menu-link{
     width: 80%;
-    margin: auto;
+    margin-top: 4vh;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
     border: 1px solid black;
     background-color: grey;
@@ -141,4 +143,23 @@ button.form{
     outline: none;
     padding: 2vh 1vw;
     margin-top: 2vh;
+}
+
+table.result{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding-top: 5vh;
+}
+
+thead.result{
+    background-color: gray;
+    color: white;
+    border: 1px solid black;
+}
+
+td.result{
+    padding: 4vh 1vw;
+    font-size: 6vw;
 }
