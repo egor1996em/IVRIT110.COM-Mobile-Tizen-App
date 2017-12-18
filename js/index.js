@@ -1,14 +1,3 @@
-
-var cards_selected_count;
-var selectedCellsList;
-
-var first_element_to_render_index;
-var last_element_to_render_index;
-var pairs_on_field;
-
-var cardsToCheck;
-
-
 document.addEventListener('DOMContentLoaded', function () { 
     
         db = openDatabase("CardGame", "1.0", "GameDB", 200000);
@@ -119,6 +108,7 @@ function printResults(){
 
             var table = document.createElement("table");
             table.setAttribute('class', 'result');
+             table.setAttribute('id', 'result');
 
             var head = document.createElement("thead");
             head.setAttribute('class', 'result');
@@ -162,9 +152,25 @@ function printResults(){
 
             table.appendChild(body);
             app.appendChild(table);
+            
+            var container = document.createElement("div");
+            container.setAttribute("class","menu-link");
+            
+            var button = document.createElement("button");
+            button.innerHTML = "Назад";
+            button.setAttribute("class","menu-link");
+            button.onclick = function (){
+                document.querySelector('#app').removeChild(document.querySelector('#result')); 
+                showMenu();
+                document.querySelector('#app').removeChild(container);
+            }
+            
+            container.appendChild(button);
+            document.querySelector('#app').appendChild(container);
         }); 
 
      }
+    
 
      function printCardsFromArray(contentArray){
         var table = document.querySelector('#gametable');
